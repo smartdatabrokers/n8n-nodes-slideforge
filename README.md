@@ -15,7 +15,10 @@ SlideForge turns structured content into native, editable PowerPoint — real te
 
 ## Installation
 
-Follow the [installation guide](https://docs.n8n.io/integrations/community-nodes/installation/) in the n8n community nodes documentation.
+Self-hosted n8n: **Settings → Community nodes → Install**, then enter `n8n-nodes-slideforge`.
+See the [n8n community nodes documentation](https://docs.n8n.io/integrations/community-nodes/installation/)
+for the details, or our [n8n PowerPoint guide](https://slideforge.dev/guides/n8n-powerpoint) for a
+worked sheet-to-deck workflow with screenshots.
 
 ## Operations
 
@@ -83,5 +86,6 @@ Use **Catalog → Get Many Layouts** once to see the layout names, then **Get La
 ## Resources
 
 - [n8n community nodes documentation](https://docs.n8n.io/integrations/#community-nodes)
+- [SlideForge n8n guide](https://slideforge.dev/guides/n8n-powerpoint) — install, operations, worked workflow
 - [SlideForge API documentation](https://slideforge.dev/docs)
 - [SlideForge layout catalog](https://slideforge.dev/gallery)

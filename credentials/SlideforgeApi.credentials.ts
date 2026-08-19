@@ -16,8 +16,7 @@ export class SlideforgeApi implements ICredentialType {
 		dark: 'file:../nodes/Slideforge/slideforge.dark.svg',
 	};
 
-	documentationUrl =
-		'https://github.com/smartdatabrokers/n8n-nodes-slideforge?tab=readme-ov-file#credentials';
+	documentationUrl = 'https://slideforge.dev/guides/n8n-powerpoint#install';
 
 	properties: INodeProperties[] = [
 		{

@@ -1,18 +1,21 @@
 {
-	"node": "n8n-nodes-slideforge.slideforge",
-	"nodeVersion": "1.0",
-	"codexVersion": "1.0",
-	"categories": ["Productivity", "Marketing & Content"],
-	"resources": {
-		"credentialDocumentation": [
-			{
-				"url": "https://github.com/smartdatabrokers/n8n-nodes-slideforge?tab=readme-ov-file#credentials"
-			}
-		],
-		"primaryDocumentation": [
-			{
-				"url": "https://github.com/smartdatabrokers/n8n-nodes-slideforge?tab=readme-ov-file"
-			}
-		]
-	}
+  "node": "n8n-nodes-slideforge.slideforge",
+  "nodeVersion": "1.0",
+  "codexVersion": "1.0",
+  "categories": [
+    "Productivity",
+    "Marketing & Content"
+  ],
+  "resources": {
+    "credentialDocumentation": [
+      {
+        "url": "https://slideforge.dev/guides/n8n-powerpoint#install"
+      }
+    ],
+    "primaryDocumentation": [
+      {
+        "url": "https://slideforge.dev/guides/n8n-powerpoint"
+      }
+    ]
+  }
 }
