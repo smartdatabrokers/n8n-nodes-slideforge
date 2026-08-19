@@ -1,6 +1,6 @@
 {
   "name": "n8n-nodes-slideforge",
-  "version": "0.1.0",
+  "version": "0.1.1",
   "description": "Render editable PowerPoint slides and decks from your n8n workflows with SlideForge",
   "license": "MIT",
   "homepage": "https://slideforge.dev",
@@ -12,7 +12,10 @@
     "presentation",
     "slideforge"
   ],
-  "author": { "name": "Thomas Seidel", "email": "thomas@seidel.info" },
+  "author": {
+    "name": "Thomas Seidel",
+    "email": "thomas@seidel.info"
+  },
   "repository": {
     "type": "git",
     "url": "https://github.com/smartdatabrokers/n8n-nodes-slideforge.git"
@@ -26,12 +29,18 @@
     "release": "n8n-node release",
     "prepublishOnly": "n8n-node prerelease"
   },
-  "files": ["dist"],
+  "files": [
+    "dist"
+  ],
   "n8n": {
     "n8nNodesApiVersion": 1,
     "strict": true,
-    "credentials": ["dist/credentials/SlideforgeApi.credentials.js"],
-    "nodes": ["dist/nodes/Slideforge/Slideforge.node.js"]
+    "credentials": [
+      "dist/credentials/SlideforgeApi.credentials.js"
+    ],
+    "nodes": [
+      "dist/nodes/Slideforge/Slideforge.node.js"
+    ]
   },
   "devDependencies": {
     "@n8n/node-cli": "*",
@@ -40,5 +49,7 @@
     "release-it": "^19.0.4",
     "typescript": "5.9.2"
   },
-  "peerDependencies": { "n8n-workflow": "*" }
+  "peerDependencies": {
+    "n8n-workflow": "*"
+  }
 }
