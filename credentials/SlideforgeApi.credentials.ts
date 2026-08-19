@@ -28,7 +28,8 @@ export class SlideforgeApi implements ICredentialType {
 			required: true,
 			default: '',
 			placeholder: 'sf_live_...',
-			description: 'Create one at https://slideforge.dev/dashboard/api-keys',
+			description:
+				'Create one at <a href="https://slideforge.dev/console/keys">slideforge.dev/console/keys</a>. New accounts get 60 free slides.',
 		},
 	];
 

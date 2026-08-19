@@ -45,9 +45,10 @@ Follow the [installation guide](https://docs.n8n.io/integrations/community-nodes
 
 You need a SlideForge API key.
 
-1. Sign up at [slideforge.dev](https://slideforge.dev). New accounts include a free trial allowance.
-2. Open **Dashboard → API keys** and create a key. It starts with `sf_live_`.
-3. In n8n, create a **SlideForge API** credential and paste the key.
+1. Sign up at [slideforge.dev](https://slideforge.dev). New accounts get **60 free slides** — no card.
+2. Go to [**Console → API Keys**](https://slideforge.dev/console/keys) and create a key. It starts
+   with `sf_live_`.
+3. In n8n, add a **SlideForge API** credential and paste the key.
 
 The credential authenticates with `Authorization: Bearer <key>`.
 
