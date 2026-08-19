@@ -105,8 +105,21 @@ one is n8n's design, not ours. The working recipe:
 `observation` is a string holding a JSON array, hence the parse and the index. Verified end to end:
 chat message in, named `.pptx` binary out.
 
-Worth considering whether the node should offer a **Deck/Slide → Create and Download** operation that
-returns the file in one step, which would make this whole question disappear for tool use.
+`observation` is a string because n8n stringifies every tool result for the model — that part is not
+ours to change. But the *need* to parse it is ours to remove, two ways, neither requiring an API
+change:
+
+**(a) `Job ID` accepts "most recent" (recommended).** Add a mode to the Job resource — leave the ID
+empty, or pick "Latest render", and the node calls `GET /v1/jobs?limit=1` itself and downloads that.
+The download node then works after *any* SlideForge step, agent or deterministic, with no expression
+at all. **Honest caveat:** "latest" is per API key, so two workflows rendering concurrently on the
+same key could cross. Scope it by `job_type` and document the caveat rather than pretend it away.
+
+**(b) A `Create and Download` operation.** One step renders and returns the `.pptx` as binary, so
+there is no second node and no id to carry. Removes the problem entirely for the deterministic path;
+for tool use the agent still only gets text back, so (a) is what fixes the agent case.
+
+Do (a) first: it is smaller, and it is the one that answers "how do I get the file after an agent".
 
 ## What was already fixed
 
