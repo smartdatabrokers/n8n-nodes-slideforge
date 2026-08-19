@@ -27,13 +27,24 @@ trusted publishing for a package that does not exist yet** — npm's own docs ar
 package you're configuring must already exist on the npm registry." So version one has to come
 out some other way, once.
 
-Do it interactively, from this directory:
+Do it interactively, from this directory (PowerShell):
 
-```sh
-npm login          # asks for your 2FA code
+```powershell
+npm login                       # asks for your 2FA code
 npm run build
-npm publish
+$env:RELEASE_MODE = "true"      # see below
+npm publish                     # prompts for a one-time code if 2FA is set to "authorization and writes"
 ```
+
+`RELEASE_MODE` is not optional. `package.json` sets `prepublishOnly` to `n8n-node prerelease`,
+whose entire job is to **block a hand-run `npm publish`** — it exits 1 with "Run `npm run release`
+to publish the package" unless that variable is set. `n8n-node release` sets it internally, which
+is why the CI path needs nothing. Verified 2026-08-19: without it, `npm publish` fails before it
+uploads anything.
+
+Do **not** use `npm run release` for this first version: it would also tag `0.1.0` and push, and
+that tag fires the publish workflow, which would then try to publish a version that already
+exists.
 
 **Not from a CI token.** A token that can publish unattended is by definition a 2FA-bypass
 granular token, and that is precisely the class npm is retiring
