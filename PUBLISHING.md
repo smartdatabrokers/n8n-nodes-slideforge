@@ -20,36 +20,41 @@ Nothing here is published yet. This is the exact remaining sequence, in order.
 3. No org/scope is needed — the package is unscoped (`n8n-nodes-slideforge`), which is what
    n8n's docs show and what every sampled community node uses.
 
-## Step 2 — first publish
+## Step 2 — the first version, published by hand
 
-The name has never been published, so Trusted Publishing cannot be configured yet: npm only
-offers that setting on an existing package. Two ways round it, pick one.
+The name has never been published, and **neither the npmjs.com UI nor `npm trust` can configure
+trusted publishing for a package that does not exist yet** — npm's own docs are explicit: "The
+package you're configuring must already exist on the npm registry." So version one has to come
+out some other way, once.
 
-**Option A — publish 0.1.0 by hand once, then switch to OIDC forever.**
+Do it interactively, from this directory:
 
 ```sh
-npm login
-npm publish            # from this directory, after `npm run build`
+npm login          # asks for your 2FA code
+npm run build
+npm publish
 ```
 
-That first version has **no provenance**, so do not submit it for verification. Then do
-step 3 and cut `0.1.1` through the workflow — that one carries provenance and is the one
-we submit.
+**Not from a CI token.** A token that can publish unattended is by definition a 2FA-bypass
+granular token, and that is precisely the class npm is retiring
+([GitHub changelog, 2026-07-08](https://github.blog/changelog/2026-07-08-npm-install-time-security-and-gat-bypass2fa-deprecation/)):
+since early August 2026 those tokens can no longer perform sensitive account operations, and from
+around January 2027 they lose direct publishing entirely — publishing becomes "staging a publish,
+where a package only becomes public after a human 2FA approval". Creating one now means creating a
+credential with a known expiry date and a secret living in repo settings. One interactive publish
+avoids ever minting it.
 
-**Option B — publish the first version from CI with a granular token.**
+**This first version carries no provenance**, so do not submit it to n8n. It exists only so that
+step 3 becomes possible.
 
-1. npm → Access Tokens → Generate New Token → Granular Access Token, read+write, scoped to
-   this package.
-2. GitHub → repo Settings → Secrets and variables → Actions → new secret `NPM_TOKEN`.
-3. `npm run release` locally; the tag push triggers `.github/workflows/publish.yml`, which
-   publishes with `--provenance`.
-4. Afterwards do step 3 and delete the token.
+## Step 3 — Trusted Publishing (OIDC), then the version we actually submit
 
-Option B gets a provenance-carrying 0.1.0 in one go and is what I would do.
+Either on npmjs.com — the package → Settings → Publish access → Trusted Publishers → Add a
+publisher — or from the CLI (needs npm 11.15+; this machine has 11.7, so use `npx npm@latest`):
 
-## Step 3 — Trusted Publishing (OIDC), after the package exists
-
-npmjs.com → the package → Settings → Publish access → Trusted Publishers → Add a publisher:
+```sh
+npx npm@latest trust github n8n-nodes-slideforge \n  --repo smartdatabrokers/n8n-nodes-slideforge \n  --file publish.yml \n  --allow-publish
+```
 
 | Field | Value |
 |---|---|
@@ -59,8 +64,18 @@ npmjs.com → the package → Settings → Publish access → Trusted Publishers
 | Workflow name | `publish.yml` |
 | Environment | leave blank |
 
-Then remove the `NPM_TOKEN` secret from the repo. The workflow already handles both paths:
-with the secret unset it falls through to the OIDC exchange.
+Account-level 2FA must be on, and the trust command needs an interactive login — a token cannot
+set this up.
+
+Then cut the next version through the workflow:
+
+```sh
+npm run release        # bump, changelog, commit, tag, push -> the tag publishes
+```
+
+**That version is the one we submit** — it is the first with a provenance attestation. No
+`NPM_TOKEN` secret is ever created; the workflow falls through to the OIDC exchange when the
+secret is absent.
 
 ## Step 4 — submit for review
 
