@@ -1,6 +1,6 @@
 {
   "name": "n8n-nodes-slideforge",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "Render editable PowerPoint slides and decks from your n8n workflows with SlideForge",
   "license": "MIT",
   "homepage": "https://slideforge.dev",
